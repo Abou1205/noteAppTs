@@ -1,0 +1,35 @@
+import { Badge, Card, Stack } from "react-bootstrap";
+import { Note } from "../../types";
+import { useNavigate } from "react-router-dom";
+import styles from "./card.module.css";
+
+type CardType = {
+  note: Note;
+};
+const NoteCard = ({ note }: CardType) => {
+  const navigate = useNavigate();
+
+  return (
+    <Card onClick={() => navigate(`/${note.id}`)} className={styles.noteCard}>
+      <Card.Body>
+        <Stack
+          gap={2}
+          className="align-items-center justify-content-between h-100"
+        >
+          <span className="fw-bold">{note.title}</span>
+          <Stack
+            gap={2}
+            direction="horizontal"
+            className="justify-content-center"
+          >
+            {note.tags.map((tag) => (
+              <Badge>{tag.label}</Badge>
+            ))}
+          </Stack>
+        </Stack>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default NoteCard;
